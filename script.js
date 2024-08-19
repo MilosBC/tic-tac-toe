@@ -16,6 +16,18 @@ function player() {
   return {setName, getName, setMarker, putMarker};
 } 
 
+const gameboard = (function() {
+    let boardArray = [1,2,3,4,5,6,7,8,9];
+    const displayBoard = () => console.log(`
+    ${boardArray[0]}   ${boardArray[1]}   ${boardArray[2]} 
+    
+    ${boardArray[3]}   ${boardArray[4]}   ${boardArray[5]}
+    
+    ${boardArray[6]}   ${boardArray[7]}   ${boardArray[8]}`);
+
+    return {displayBoard};
+}) ();
+
 console.log('Welcome to Tic Tac Toe! Good luck everyone and may the better player win!');
 
 const playerOne = player();
@@ -28,6 +40,11 @@ const playerTwo = player();
 playerTwo.setName();
 playerTwo.setMarker('O');
 playerTwo.getName();
+
+
+gameboard.displayBoard();
+
+
 
 
 
