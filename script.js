@@ -37,11 +37,32 @@ const gameboard = (function() {
      boardArray.splice(numberInput, 1, `${markers[markers.length - 1] === 'X' ? 'X' : 'O'}`);
      
       
+    };
+
+    const checkforWinner = marker => {
+      if ((boardArray[0] === marker && boardArray[1] === marker && boardArray[2] === marker) || (boardArray[0] === marker && boardArray[3] === marker && boardArray[6] === marker) || (boardArray[0] === marker && boardArray[4] === marker && boardArray[8] === marker) 
+      || (boardArray[1] === marker && boardArray[4] === marker && boardArray[7] === marker)
+      || (boardArray[2] === marker && boardArray[5] === marker && boardArray[8] === marker) || (boardArray[2] === marker && boardArray[4] === marker && boardArray[6] === marker)
+      || (boardArray[3] === marker && boardArray[4] === marker && boardArray[5] === marker)
+      || (boardArray[6] === marker && boardArray[7] === marker && boardArray[8] === marker)) {
+   
+      if (marker === 'X') {
+        announceWinner(playerOne.getName());
+      } else  if (marker === 'O') {
+        announceWinner(playerTwo.getName());
+      }
+      } 
     }
+
+    const announceWinner = player => {
+      console.log(`${player} has won the game! Total number of moves: ${markers.length}`);
+      activeGame = false;
+    }
+
 
     
 
-    return {displayBoard, pushMarker, choosePosition};
+    return {displayBoard, pushMarker, choosePosition, checkforWinner};
 }) ();
 
 
@@ -73,6 +94,8 @@ function gameFlow() {
      gameboard.pushMarker(playerOne.putMarker());
      gameboard.choosePosition(playerOneInput);
      gameboard.displayBoard();
+     gameboard.checkforWinner('X');
+     gameboard.checkforWinner('O');
      activePlayer = 2;
      
 
@@ -81,6 +104,8 @@ function gameFlow() {
      gameboard.pushMarker(playerTwo.putMarker());
      gameboard.choosePosition(playerTwoInput);
      gameboard.displayBoard();
+     gameboard.checkforWinner('X');
+     gameboard.checkforWinner('O');
      activePlayer = 1;
     }
   }
@@ -90,10 +115,12 @@ function gameFlow() {
 
 const newGame = gameFlow();
 
-newGame.switchActivePlayer(); 
-newGame.switchActivePlayer(); 
-newGame.switchActivePlayer(); 
-newGame.switchActivePlayer(); 
+while(activeGame) {
+  
+newGame.switchActivePlayer();
+} 
+ 
+
 
 
 
