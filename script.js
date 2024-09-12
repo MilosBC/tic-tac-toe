@@ -1,4 +1,7 @@
 let activeGame = true;
+let playerOne;
+let playerTwo;
+let newGame;
 
 
 function player() {
@@ -18,7 +21,10 @@ function player() {
   const setMarker = (markerPlaceholder) => marker = markerPlaceholder;
   const putMarker = () => marker; 
 
-  return {setName, getName, playerDetails, setMarker, putMarker};
+  const resetName = () => name = null; 
+  const resetMarker = () => marker = null; 
+
+  return {setName, getName, playerDetails, setMarker, putMarker, resetName, resetMarker};
 } 
 
 const gameboard = (function() {
@@ -66,31 +72,46 @@ const gameboard = (function() {
     const announceWinner = player => {
       console.log(`${player} has won the game! Total number of moves: ${markers.length}`);
       activeGame = false;
+
+      const newGame = prompt('Do you want play again? Type "y" or "yes" to start a new game');
+      if (newGame === 'y'.toLowerCase() || newGame === 'yes'.toLowerCase()) {
+        resetGame();
+        initializeGameParameters();
+        startGame();
+        activeGame = true;
+      }
+    }
+
+    const resetBoard = () => {
+      boardArray = [1,2,3,4,5,6,7,8,9];
+      markers = [];
+
     }
 
 
     
 
-    return {displayBoard, pushMarker, checkAvailablePosition, choosePosition, checkforWinner};
+    return {displayBoard, pushMarker, checkAvailablePosition, choosePosition, checkforWinner, resetBoard};
 }) ();
 
-
-
+function initializeGameParameters() {
 console.log('Welcome to Tic Tac Toe! Good luck everyone and may the better player win!');
-
-const playerOne = player();
+playerOne = player();
 playerOne.setName();
 playerOne.setMarker('X');
 playerOne.playerDetails();
 
 
-const playerTwo = player();
+playerTwo = player();
 playerTwo.setName();
 playerTwo.setMarker('O');
 playerTwo.playerDetails();
 
 
 gameboard.displayBoard();
+}
+
+initializeGameParameters();
 
 
 function gameFlow() {
@@ -109,12 +130,6 @@ function gameFlow() {
      } 
       } 
      while(!availablePosition); 
-
-   
-
-     /*playerOneInput = Number(prompt(`${playerOne.getName()}, where do you want to place your mark! Choose the number between 1 and 9`));
-     gameboard.checkAvailablePosition(playerOneInput); */
-
      gameboard.pushMarker(playerOne.putMarker());
      gameboard.choosePosition(playerOneInput);
      gameboard.displayBoard();
@@ -148,10 +163,22 @@ function gameFlow() {
 }
 
 function resetGame() {
+  playerOne.resetName();
+  playerOne.resetMarker();
+
+  playerTwo.resetName();
+  playerTwo.resetMarker();
+
+  gameboard.resetBoard();
+ 
   
 }
 
-const newGame = gameFlow();
+function startGame() {
+  newGame = gameFlow();
+}
+
+startGame();
 
 while(activeGame) {
   
