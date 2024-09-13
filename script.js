@@ -73,8 +73,8 @@ const gameboard = (function() {
       console.log(`${player} has won the game! Total number of moves: ${markers.length}`);
       activeGame = false;
 
-      const newGame = prompt('Do you want play again? Type "y" or "yes" to start a new game');
-      if (newGame === 'y'.toLowerCase() || newGame === 'yes'.toLowerCase()) {
+      const newGame = prompt('Do you want play again? Type "y" or "yes" to start a new game').toLowerCase();
+      if (newGame === 'y' || newGame === 'yes') {
         resetGame();
         initializeGameParameters();
         startGame();
@@ -118,44 +118,36 @@ function gameFlow() {
   
   let activePlayer = 1;
 
+  function switchLogic(playerInput, playerNumber) {
+      
+      let availablePosition = false;
+    do {
+      
+      playerInput = Number(prompt(`${playerNumber.getName()}, where do you want to place your mark! Choose the number between 1 and 9`));
+     if (gameboard.checkAvailablePosition(playerInput)) {
+      availablePosition = true;
+     } 
+      } 
+     while(!availablePosition); 
+     gameboard.pushMarker(playerNumber.putMarker());
+     gameboard.choosePosition(playerInput);
+     gameboard.displayBoard();
+     gameboard.checkforWinner('X');
+     gameboard.checkforWinner('O');
+    
+  }
+
   const switchActivePlayer = () => {
     if (activePlayer === 1) {
       let playerOneInput;
-      let availablePosition = false;
-    do {
-      
-      playerOneInput = Number(prompt(`${playerOne.getName()}, where do you want to place your mark! Choose the number between 1 and 9`));
-     if (gameboard.checkAvailablePosition(playerOneInput)) {
-      availablePosition = true;
-     } 
-      } 
-     while(!availablePosition); 
-     gameboard.pushMarker(playerOne.putMarker());
-     gameboard.choosePosition(playerOneInput);
-     gameboard.displayBoard();
-     gameboard.checkforWinner('X');
-     gameboard.checkforWinner('O');
-     activePlayer = 2;
+      switchLogic(playerOneInput, playerOne);
+      activePlayer = 2;
      
 
     } else if (activePlayer === 2) {
-      let playerTwoInput;
-      let availablePosition = false;
-    do {
-      
-      playerTwoInput = Number(prompt(`${playerTwo.getName()}, where do you want to place your mark! Choose the number between 1 and 9`));
-     if (gameboard.checkAvailablePosition(playerTwoInput)) {
-      availablePosition = true;
-     } 
-      } 
-     while(!availablePosition); 
-
-     gameboard.pushMarker(playerTwo.putMarker());
-     gameboard.choosePosition(playerTwoInput);
-     gameboard.displayBoard();
-     gameboard.checkforWinner('X');
-     gameboard.checkforWinner('O');
-     activePlayer = 1;
+        let playerTwoInput;
+        switchLogic(playerTwoInput, playerTwo);
+        activePlayer = 1;
     }
   }
 
