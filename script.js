@@ -28,7 +28,7 @@ function player() {
 } 
 
 const gameboard = (function() {
-    let boardArray = [1,2,3,4,5,6,7,8,9];
+    let boardArray = [0,1,2,3,4,5,6,7,8];
     let markers = [];
     const displayBoard = () => console.log(`
     ${boardArray[0]}   ${boardArray[1]}   ${boardArray[2]} 
@@ -83,7 +83,7 @@ const gameboard = (function() {
     }
 
     const resetBoard = () => {
-      boardArray = [1,2,3,4,5,6,7,8,9];
+      boardArray = [0,1,2,3,4,5,6,7,8];
       markers = [];
 
     }
