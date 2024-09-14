@@ -123,7 +123,7 @@ function gameFlow() {
       let availablePosition = false;
     do {
       
-      playerInput = Number(prompt(`${playerNumber.getName()}, where do you want to place your mark! Choose the number between 1 and 9`));
+      playerInput = Number(prompt(`${playerNumber.getName()}, where do you want to place your mark! Choose the number between 0 and 8`));
      if (gameboard.checkAvailablePosition(playerInput)) {
       availablePosition = true;
      } 
@@ -134,6 +134,7 @@ function gameFlow() {
      gameboard.displayBoard();
      gameboard.checkforWinner('X');
      gameboard.checkforWinner('O');
+     activePlayer = activePlayer === 1 ? 2:1;
     
   }
 
@@ -141,13 +142,13 @@ function gameFlow() {
     if (activePlayer === 1) {
       let playerOneInput;
       switchLogic(playerOneInput, playerOne);
-      activePlayer = 2;
+     
      
 
     } else if (activePlayer === 2) {
         let playerTwoInput;
         switchLogic(playerTwoInput, playerTwo);
-        activePlayer = 1;
+       
     }
   }
 
