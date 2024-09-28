@@ -1,11 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
-</head>
-<body>
-    <script src="script.js"></script>
-</body>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <title>Tic Tac Toe</title>
+        <link rel="stylesheet" href="styles.css">
+
+    </head>
+
+    <body>
+        <div class="game-data">
+            <h1>Tic Tac Toe</h1>
+            <p>Enter the player the details and click "New Game" to start the game. Good luck!</p>
+            <form action="#" method="get">
+            <label for="player-one">Player 1:</label>
+            <input type="text" id="player-one" name="player-one">
+            <label for="player-two">Player 2:</label>
+            <input type="text" id="player-two" name="player-two">
+            <button type="submit">New game</button>
+
+            </form>
+
+
+        </div>
+
+        <div class="game-window hidden">
+        <div class="player-info">
+            <div class="first-player">
+                <p>Player 1:</p>
+                <p class="player-one-name"></p>
+            </div>
+
+            <div class="second-player">
+                <p>Player 2:</p>
+                <p class="player-two-name"></p>
+            </div>
+        </div>
+
+        <div class="game-board">
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+        </div>
+
+        <div class="game-messages">
+            <p class="active-player"></p>
+            <p class="turns"></p>
+        </div>
+        </div>
+
+    </body>
 </html>
