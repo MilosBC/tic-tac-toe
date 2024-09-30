@@ -1,0 +1,121 @@
+:root {
+    --dark: #0A0A23;
+    --light: #FFFFFF;
+    --purple: #5A01A7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+   background-color: var(--dark); 
+   color: var(--light);
+   font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+html, body {
+    height: 100%;
+}
+.game-data {
+    display: flex;
+    flex-direction: column;
+    width: 850px;
+    align-items: center;
+    gap: 30px;
+    padding: 10px;
+}
+
+h1 {
+    font-size: 2.3rem;
+    font-family: "Anton", sans-serif;
+}
+
+p, 
+label  {
+    font-size: 1.5rem;
+   
+}
+
+label:nth-of-type(1) {
+    margin-left: 32px;
+}
+
+
+
+input[type="text"] {
+    
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--light);
+    outline: none;
+    border-bottom-width: 2px;
+    margin-left: 15px;
+    position: relative;
+    bottom: 2px;
+    color: var(--light);
+    font-size: 1.2rem;
+ 
+}
+
+#player-one {
+    margin-right: 50px;
+ 
+}
+
+.new-game {
+    display: block;
+    margin: 30px auto;
+    width: 150px;
+    height: 30px;
+    font-size: 1.1rem;
+    background-color: var(--purple);
+    border-color: var(--purple);
+    color: var(--light);
+    cursor: pointer;
+    padding-bottom: 1px;
+    border-radius: 10px;
+}
+
+.footer {
+    width: 400px;
+    font-size: 1.8rem;
+    display: flex;
+    margin-top: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    position: relative;
+    top: 33%;
+    text-align: center;
+    padding-left: 21px;
+}
+
+.fa-github {
+    transition: transform .5s ease-in-out;
+    font-size: 2.8rem; 
+    margin-left: 12px; 
+    margin-top: 19px;
+    color: white;
+    position: relative;
+    bottom: 28px;
+    left: 1px;
+    
+}
+
+.fa-github:hover {
+    transform: rotate(360deg);
+}
+
+.hidden {
+    display: none;
+}
