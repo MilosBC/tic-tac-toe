@@ -14,16 +14,18 @@ body {
    background-color: var(--dark); 
    color: var(--light);
    font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+   font-weight: 400;
+   font-style: normal;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center; 
+  
   
 }
 
-html, body {
+html, 
+body {
     height: 100%;
 }
 .game-data {
@@ -31,7 +33,7 @@ html, body {
     flex-direction: column;
     width: 850px;
     align-items: center;
-    gap: 30px;
+    gap: 80px;
     padding: 10px;
 }
 
@@ -72,7 +74,8 @@ input[type="text"] {
  
 }
 
-.new-game {
+.new-game,
+.play-again {
     display: block;
     margin: 30px auto;
     width: 150px;
@@ -84,6 +87,11 @@ input[type="text"] {
     cursor: pointer;
     padding-bottom: 1px;
     border-radius: 10px;
+}
+
+.new-game {
+   position: relative;
+   top: 40px;
 }
 
 .footer {
@@ -116,6 +124,85 @@ input[type="text"] {
     transform: rotate(360deg);
 }
 
+/*.hidden {
+    display: none;
+} */
+
+.game-window {
+    display: flex;
+    flex-direction: column;
+   align-items: center;
+  
+   
+}
+
+.player-info {
+    display: flex;
+    justify-content: center;
+    gap: 800px;
+    padding-top: 15px;
+}
+
+.first-player > p,
+.second-player > p {
+    font-size: 2.5rem;
+}
+.player-one-marker,
+.player-two-marker {
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.game-board {
+    width: 450px;
+    height: 450px;
+    border: 2px solid var(--light);
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 150px);
+    font-size: 3.5rem;
+   
+}
+
+.field {
+    border: 2px solid var(--light);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   
+  
+   
+}
+
+.game-messages {
+    margin-top: 40px;
+    margin-left: 75px;
+}
+
+.game-messages > p {
+    font-size: 2rem;
+}
+
+.turns {
+    margin-top: 25px;
+}
+
+.reset {
+    margin-top: 30px;
+}
+
+.play-again {
+    margin-bottom: 50px;
+}
+
 .hidden {
     display: none;
 }
+
+.footer.two {
+ /* margin-top: 20px; */
+ margin-top: 60px;
+}
+
+
