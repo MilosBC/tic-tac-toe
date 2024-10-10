@@ -1,3 +1,7 @@
+/* Console version*/
+
+
+/*
 let activeGame = true;
 let playerOne;
 let playerTwo;
@@ -177,7 +181,51 @@ while(activeGame) {
   
 newGame.switchActivePlayer();
 } 
+
+*/
  
+
+
+
+
+
+
+/* UI version*/
+
+let activeGame = true;
+let playerOne;
+let playerTwo;
+let newGame;
+
+const newGameButton = document.querySelector('.new-game');
+const dataentryWindow = document.querySelector('.game-data');
+const playerOneTextInput = document.querySelector('#player-one');
+const playerTwoTextInput = document.querySelector('#player-two');
+const gameWindow = document.querySelector('.game-window');
+
+
+
+function switchGameWindows() {
+
+  dataentryWindow.style.animation = 'scrollUp 1.5s forwards';
+  /*document.body.style.display = 'block'; */
+  
+  /*gameWindow.style.animation = 'scrollDown 2s forwards';
+  dataentryWindow.classList.add('hidden');
+  gameWindow.classList.remove('hidden'); */
+
+  
+  
+}
+
+newGameButton.addEventListener('click', switchGameWindows);
+
+dataentryWindow.addEventListener('animationend', ()=> {
+  gameWindow.style.animation = 'scrollDown 1.5s forwards';
+  dataentryWindow.classList.add('hidden');
+  gameWindow.classList.remove('hidden');
+})
+
 
 
 
