@@ -202,12 +202,13 @@ const dataentryWindow = document.querySelector('.game-data');
 const playerOneTextInput = document.querySelector('#player-one');
 const playerTwoTextInput = document.querySelector('#player-two');
 const gameWindow = document.querySelector('.game-window');
+const errorMessage = document.querySelector('.error-message');
 
 
 
 function switchGameWindows() {
 
-  dataentryWindow.style.animation = 'scrollUp 1.5s forwards';
+
   /*document.body.style.display = 'block'; */
   
   /*gameWindow.style.animation = 'scrollDown 2s forwards';
@@ -215,10 +216,18 @@ function switchGameWindows() {
   gameWindow.classList.remove('hidden'); */
 
   
-  
+
 }
 
-newGameButton.addEventListener('click', switchGameWindows);
+newGameButton.addEventListener('click', e=> {
+  e.preventDefault();
+  if (!playerOneTextInput.value || !playerTwoTextInput.value) {
+    errorMessage.textContent = 'Please enter the names of both player one and player two!'
+  } else {
+
+  dataentryWindow.style.animation = 'scrollUp 1.5s forwards';
+}
+});
 
 dataentryWindow.addEventListener('animationend', ()=> {
   gameWindow.style.animation = 'scrollDown 1.5s forwards';

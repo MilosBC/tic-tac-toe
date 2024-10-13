@@ -2,6 +2,7 @@
     --dark: #0A0A23;
     --light: #FFFFFF;
     --purple: #5A01A7;
+    --red: #f50303;
 }
 
 * {
@@ -93,6 +94,13 @@ input[type="text"] {
 .new-game {
    position: relative;
    top: 40px;
+}
+
+.error-message {
+    text-align: center;
+    margin-top: 55px;
+  font-size: 1.1rem;
+  color: var(--red);
 }
 
 .footer {
