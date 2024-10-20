@@ -396,13 +396,14 @@ function gameFlow() {
 
   function switchLogic(playerInput, playerNumber, eventObject) {
 
-   
+   const boardFields = Array.from(document.querySelectorAll('.field'));
       
       let availablePosition = false;
 
       do {
         gameboard.changeStatusMessage(`${playerNumber.getName()}, choose your position!`);
         playerInput = eventObject.target.getAttribute('data-position');
+        boardFields[playerInput].textContent = `${activePlayer === 1 ? 'X' : 'O'}`;
        if (gameboard.checkAvailablePosition(playerInput)) {
         availablePosition = true;
        } 
