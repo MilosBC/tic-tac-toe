@@ -256,6 +256,16 @@ const gameboard = (function() {
 
     const statusMessage = document.querySelector('.status-messages');
 
+   /* const boardFields = Array.from(document.querySelectorAll('.field'));
+
+    const getBoardIndexes = () => {
+      boardFields.forEach(boardfield => {
+        boardfield.addEventListener('animationend', ()=> {
+          return boardfield.getAttribute('data-position');
+        })
+      })
+    } */
+
     const changeStatusMessage = text => statusMessage.textContent = text;
 
     const pushMarker = marker => markers.push(marker);
@@ -294,14 +304,14 @@ const gameboard = (function() {
 
     const announceWinner = player => {
       console.log(`${player} has won the game! Total number of moves: ${markers.length}`);
-      activeGame = false;
+     // activeGame = false;
 
       const newGame = prompt('Do you want play again? Type "y" or "yes" to start a new game').toLowerCase();
       if (newGame === 'y' || newGame === 'yes') {
         resetGame();
         initializeGameParameters();
         startGame();
-        activeGame = true;
+      //  activeGame = true;
       }
     }
 
@@ -335,16 +345,23 @@ dataentryWindow.addEventListener('animationend', ()=> {
   gameWindow.classList.remove('hidden');
   activeGame = true;
   startGame();
+ 
   /*while(activeGame) {
    
   newGame.switchActivePlayer();
   } */
 
-  putMarkersOnBoard();
+ // putMarkersOnBoard();
+
+
   
   
   
 })
+
+gameWindow.addEventListener('click', e=> {
+  newGame.switchActivePlayer(e);
+ })
 
 /* ***** */
 
@@ -377,36 +394,42 @@ function gameFlow() {
   
   let activePlayer = 1;
 
-  function switchLogic(playerInput, playerNumber) {
+  function switchLogic(playerInput, playerNumber, eventObject) {
+
+   
       
       let availablePosition = false;
-    do {
-      gameboard.changeStatusMessage(`${playerNumber.getName()}, choose your position!`);
-      playerInput = Number(prompt(`${playerNumber.getName()}, where do you want to place your mark! Choose the number between 0 and 8`));
-     if (gameboard.checkAvailablePosition(playerInput)) {
-      availablePosition = true;
-     } 
-      } 
-     while(!availablePosition); 
-     gameboard.pushMarker(playerNumber.putMarker());
-     gameboard.choosePosition(playerInput);
-     gameboard.displayBoard();
-     gameboard.checkforWinner('X');
-     gameboard.checkforWinner('O');
-     activePlayer = activePlayer === 1 ? 2:1;
+
+      do {
+        gameboard.changeStatusMessage(`${playerNumber.getName()}, choose your position!`);
+        playerInput = eventObject.target.getAttribute('data-position');
+       if (gameboard.checkAvailablePosition(playerInput)) {
+        availablePosition = true;
+       } 
+        } 
+       while(!availablePosition); 
+       gameboard.pushMarker(playerNumber.putMarker());
+       gameboard.choosePosition(playerInput);
+       gameboard.displayBoard();
+       gameboard.checkforWinner('X');
+       gameboard.checkforWinner('O');
+       activePlayer = activePlayer === 1 ? 2:1;
+
     
   }
 
-  const switchActivePlayer = () => {
+  const switchActivePlayer = (eventObject) => {
     if (activePlayer === 1) {
       let playerOneInput;
-      switchLogic(playerOneInput, playerOne);
+      switchLogic(playerOneInput, playerOne, eventObject);
+     
      
      
 
     } else if (activePlayer === 2) {
         let playerTwoInput;
-        switchLogic(playerTwoInput, playerTwo);
+        switchLogic(playerTwoInput, playerTwo, eventObject);
+        
        
     }
   }
@@ -435,11 +458,11 @@ function startGame() {
 
 //startGame();
 
-function putMarkersOnBoard() {
+/*function putMarkersOnBoard() {
   document.body.addEventListener('click', e => {
-    console.log('pozicija', e.target.getAttribute('data-position'));
+    console.log(e.target.getAttribute('data-position'));
   })
-}
+} */
 
 
 
