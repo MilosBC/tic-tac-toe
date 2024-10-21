@@ -255,7 +255,9 @@ const gameboard = (function() {
     ${boardArray[6]}   ${boardArray[7]}   ${boardArray[8]}`);
 
     const statusMessage = document.querySelector('.status-messages');
+    const numberOfTurns = document.querySelector('.number-of-turns');
 
+    const updateNumberOfTurns = ()=> numberOfTurns.textContent = markers.length;
    /* const boardFields = Array.from(document.querySelectorAll('.field'));
 
     const getBoardIndexes = () => {
@@ -274,7 +276,7 @@ const gameboard = (function() {
 
     const checkAvailablePosition = numberInput => {
       if ( boardArray[numberInput] === 'X' || boardArray[numberInput] === 'O' ) {
-       alert('The position is already taken over!');
+        gameboard.changeStatusMessage(`The position is already taken!`);
         return false;
       } else {
         return true;
@@ -304,6 +306,7 @@ const gameboard = (function() {
 
     const announceWinner = player => {
       console.log(`${player} has won the game! Total number of moves: ${markers.length}`);
+      gameboard.changeStatusMessage(`${player} has won the game!`);
      // activeGame = false;
 
       const newGame = prompt('Do you want play again? Type "y" or "yes" to start a new game').toLowerCase();
@@ -324,7 +327,7 @@ const gameboard = (function() {
 
     
 
-    return {displayBoard, pushMarker, changeStatusMessage, checkAvailablePosition, choosePosition, checkforWinner, resetBoard};
+    return {displayBoard, pushMarker, changeStatusMessage, updateNumberOfTurns, checkAvailablePosition, choosePosition, checkforWinner, resetBoard};
 }) ();
 
 newGameButton.addEventListener('click', e=> {
@@ -412,6 +415,7 @@ function gameFlow() {
        gameboard.pushMarker(playerNumber.putMarker());
        gameboard.choosePosition(playerInput);
        gameboard.displayBoard();
+       gameboard.updateNumberOfTurns();
        gameboard.checkforWinner('X');
        gameboard.checkforWinner('O');
        activePlayer = activePlayer === 1 ? 2:1;
