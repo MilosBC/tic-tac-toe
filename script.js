@@ -256,6 +256,10 @@ const gameboard = (function() {
 
     const statusMessage = document.querySelector('.status-messages');
     const numberOfTurns = document.querySelector('.number-of-turns');
+    const dialog = document.querySelector('dialog');
+
+   const openModal = ()=> dialog.showModal();
+   const closeModal = ()=> dialog.close(); 
 
     const updateNumberOfTurns = ()=> numberOfTurns.textContent = markers.length;
    /* const boardFields = Array.from(document.querySelectorAll('.field'));
@@ -309,13 +313,18 @@ const gameboard = (function() {
       gameboard.changeStatusMessage(`${player} has won the game!`);
      // activeGame = false;
 
-      const newGame = prompt('Do you want play again? Type "y" or "yes" to start a new game').toLowerCase();
+    /*  const newGame = prompt('Do you want play again? Type "y" or "yes" to start a new game').toLowerCase();
       if (newGame === 'y' || newGame === 'yes') {
         resetGame();
         initializeGameParameters();
         startGame();
       //  activeGame = true;
-      }
+      } */
+      
+      
+     //dialog.showModal();
+
+     openModal();
     }
 
     const resetBoard = () => {
@@ -327,7 +336,7 @@ const gameboard = (function() {
 
     
 
-    return {displayBoard, pushMarker, changeStatusMessage, updateNumberOfTurns, checkAvailablePosition, choosePosition, checkforWinner, resetBoard};
+    return {displayBoard, pushMarker, changeStatusMessage, updateNumberOfTurns, checkAvailablePosition, choosePosition, checkforWinner, resetBoard, openModal, closeModal};
 }) ();
 
 newGameButton.addEventListener('click', e=> {
@@ -347,7 +356,9 @@ dataentryWindow.addEventListener('animationend', ()=> {
   dataentryWindow.classList.add('hidden');
   gameWindow.classList.remove('hidden');
   activeGame = true;
+  
   startGame();
+  
  
   /*while(activeGame) {
    

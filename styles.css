@@ -77,7 +77,9 @@ input[type="text"] {
 
 .new-game,
 .play-again,
-.restart-game {
+.restart-game,
+.yes,
+.no {
     display: block;
     margin: 30px auto;
     width: 150px;
@@ -141,6 +143,7 @@ input[type="text"] {
     display: flex;
     flex-direction: column;
    align-items: center;
+   position: relative;
   
    
 }
@@ -218,6 +221,33 @@ input[type="text"] {
  /* margin-top: 20px; */
  margin-top: -180px;
 }
+
+.modal-window {
+    width: 500px;
+    height: 115px;
+    padding: 10px;
+    color: var(--dark);
+    background-color: var(--light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+   /* position: absolute;
+    top: 250px ; */
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+dialog {
+    /*display: block; */
+   position: absolute;
+   left: 690px;
+   top: 300px;
+    
+} 
 
 /* Animations */
 
