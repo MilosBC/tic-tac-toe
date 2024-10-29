@@ -257,6 +257,9 @@ const gameboard = (function() {
     const statusMessage = document.querySelector('.status-messages');
     const numberOfTurns = document.querySelector('.number-of-turns');
     const dialog = document.querySelector('dialog');
+    const yesBtn = document.querySelector('.yes');
+    const noBtn = document.querySelector('.no');
+    
 
    const openModal = ()=> dialog.showModal();
    const closeModal = ()=> dialog.close(); 
@@ -305,12 +308,21 @@ const gameboard = (function() {
       } else  if (marker === 'O') {
         announceWinner(playerTwo.getName());
       }
-      } 
+      } else {
+        /* gameboard.changeStatusMessage(`It's a tie! No one wins`);
+        activeGame = false;*/
+        if ((boardArray.every(num => typeof num !== 'number')) && !statusMessage.textContent.includes('won')) {
+          gameboard.changeStatusMessage(`It's a tie! No one wins`);
+          activeGame = false;
+        }
+        
+      }
     }
 
     const announceWinner = player => {
       console.log(`${player} has won the game! Total number of moves: ${markers.length}`);
       gameboard.changeStatusMessage(`${player} has won the game!`);
+      activeGame = false;
      // activeGame = false;
 
     /*  const newGame = prompt('Do you want play again? Type "y" or "yes" to start a new game').toLowerCase();
@@ -325,6 +337,51 @@ const gameboard = (function() {
      //dialog.showModal();
 
      openModal();
+     noBtn.addEventListener('click', ()=> {
+      closeModal();
+     })
+
+     yesBtn.addEventListener('click', ()=> {
+      /*resetGame();
+      gameWindow.removeEventListener('click', switchPlayers);
+      gameWindow.style.animation = 'scrollDown 1.5s forwards';
+     
+        gameWindow.classList.add('hidden');
+      
+        playerOneTextInput.value = '';
+        playerTwoTextInput.value = '';
+        
+        dataentryWindow.removeEventListener('animationend', preloadGame);
+        
+
+        
+        dataentryWindow.style.animation = 'scrollDown 1.5s forwards'; 
+        dataentryWindow.classList.remove('hidden');
+        console.log('kompjutovano ', window.getComputedStyle(dataentryWindow).pointerEvents); */
+        gameWindow.removeEventListener('click', switchPlayers);
+        gameWindow.style.animation = 'scrollUp 1.5s forwards';
+        gameWindow.addEventListener('animationend', () => {
+            gameWindow.classList.add('hidden');
+            dataentryWindow.removeEventListener('animationend', preloadGame);
+            dataentryWindow.classList.remove('hidden');
+            dataentryWindow.style.animation = 'scrollDown 1.5s forwards';
+        });
+
+        resetGame();
+        playerOneTextInput.value = '';
+        playerTwoTextInput.value = '';
+
+     
+        
+  
+     
+      
+      
+  
+     /* resetGame();
+      initializeGameParameters();
+      startGame(); */
+     })
     }
 
     const resetBoard = () => {
@@ -339,6 +396,23 @@ const gameboard = (function() {
     return {displayBoard, pushMarker, changeStatusMessage, updateNumberOfTurns, checkAvailablePosition, choosePosition, checkforWinner, resetBoard, openModal, closeModal};
 }) ();
 
+function preloadGame() {
+  gameWindow.style.animation = 'scrollDown 1.5s forwards';
+  initializeGameParameters();
+  dataentryWindow.classList.add('hidden');
+  gameWindow.classList.remove('hidden');
+  activeGame = true;
+  
+  startGame();
+
+    /*while(activeGame) {
+   
+  newGame.switchActivePlayer();
+  } */
+
+ // putMarkersOnBoard();
+}
+
 newGameButton.addEventListener('click', e=> {
   e.preventDefault();
   
@@ -350,32 +424,15 @@ newGameButton.addEventListener('click', e=> {
 }
 });
 
-dataentryWindow.addEventListener('animationend', ()=> {
-  gameWindow.style.animation = 'scrollDown 1.5s forwards';
-  initializeGameParameters();
-  dataentryWindow.classList.add('hidden');
-  gameWindow.classList.remove('hidden');
-  activeGame = true;
-  
-  startGame();
-  
- 
-  /*while(activeGame) {
-   
-  newGame.switchActivePlayer();
-  } */
+dataentryWindow.addEventListener('animationend', preloadGame);
 
- // putMarkersOnBoard();
-
-
-  
-  
-  
-})
-
-gameWindow.addEventListener('click', e=> {
+function switchPlayers(e) {
+  if (activeGame) {
   newGame.switchActivePlayer(e);
- })
+}
+} 
+
+gameWindow.addEventListener('click', switchPlayers);
 
 /* ***** */
 
@@ -450,7 +507,13 @@ function gameFlow() {
     }
   }
 
-  return {switchActivePlayer};
+  const clearGameboard = () => {
+    boardFields.forEach(field=> {
+      field.textContent='';
+    })
+  }
+
+  return {switchActivePlayer, clearGameboard};
 }
 
 function resetGame() {
