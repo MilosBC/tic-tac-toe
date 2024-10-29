@@ -207,6 +207,7 @@ const gameWindow = document.querySelector('.game-window');
 const errorMessage = document.querySelector('.error-message');
 const playerOneName = document.querySelector('.player-one-name');
 const playerTwoName = document.querySelector('.player-two-name');
+const restartGame = document.querySelector('.restart-game');
 
 
 
@@ -434,6 +435,12 @@ function switchPlayers(e) {
 
 gameWindow.addEventListener('click', switchPlayers);
 
+restartGame.addEventListener('click', ()=> {
+  gameboard.resetBoard();
+  newGame.clearGameboard();
+  newGame.resetActivePlayer();
+})
+
 /* ***** */
 
 
@@ -456,6 +463,7 @@ playerTwoName.textContent = playerTwo.getName();
 
 
 gameboard.displayBoard();
+
 }
 
 
@@ -464,10 +472,11 @@ gameboard.displayBoard();
 function gameFlow() {
   
   let activePlayer = 1;
+  const boardFields = Array.from(document.querySelectorAll('.field'));
 
   function switchLogic(playerInput, playerNumber, eventObject) {
 
-   const boardFields = Array.from(document.querySelectorAll('.field'));
+   
       
       let availablePosition = false;
 
@@ -513,7 +522,9 @@ function gameFlow() {
     })
   }
 
-  return {switchActivePlayer, clearGameboard};
+  const resetActivePlayer = ()=> activePlayer = 1;
+
+  return {switchActivePlayer, clearGameboard, resetActivePlayer};
 }
 
 function resetGame() {
