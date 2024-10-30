@@ -284,7 +284,7 @@ const gameboard = (function() {
 
     const checkAvailablePosition = numberInput => {
       if ( boardArray[numberInput] === 'X' || boardArray[numberInput] === 'O' ) {
-        gameboard.changeStatusMessage(`The position is already taken!`);
+      
         return false;
       } else {
         return true;
@@ -403,6 +403,7 @@ function preloadGame() {
   dataentryWindow.classList.add('hidden');
   gameWindow.classList.remove('hidden');
   activeGame = true;
+
   
   startGame();
 
@@ -424,6 +425,7 @@ newGameButton.addEventListener('click', e=> {
   dataentryWindow.style.animation = 'scrollUp 1.5s forwards';
 }
 });
+
 
 dataentryWindow.addEventListener('animationend', preloadGame);
 
@@ -480,7 +482,7 @@ function gameFlow() {
       
       let availablePosition = false;
 
-      do {
+     /* do {
         gameboard.changeStatusMessage(`${playerNumber.getName()}, choose your position!`);
         playerInput = eventObject.target.getAttribute('data-position');
         boardFields[playerInput].textContent = `${activePlayer === 1 ? 'X' : 'O'}`;
@@ -488,14 +490,23 @@ function gameFlow() {
         availablePosition = true;
        } 
         } 
-       while(!availablePosition); 
-       gameboard.pushMarker(playerNumber.putMarker());
-       gameboard.choosePosition(playerInput);
-       gameboard.displayBoard();
-       gameboard.updateNumberOfTurns();
-       gameboard.checkforWinner('X');
-       gameboard.checkforWinner('O');
-       activePlayer = activePlayer === 1 ? 2:1;
+       while(!availablePosition); */
+      gameboard.changeStatusMessage(`${playerNumber.getName()}, choose your position!`);
+       playerInput = eventObject.target.getAttribute('data-position');
+       if (!gameboard.checkAvailablePosition(playerInput)) {
+        gameboard.changeStatusMessage('Position is already taken!');
+       } else {
+        boardFields[playerInput].textContent = `${activePlayer === 1 ? 'X' : 'O'}`;
+        gameboard.pushMarker(playerNumber.putMarker());
+        gameboard.choosePosition(playerInput);
+        gameboard.displayBoard();
+        gameboard.updateNumberOfTurns();
+        gameboard.checkforWinner('X');
+        gameboard.checkforWinner('O');
+        activePlayer = activePlayer === 1 ? 2:1;
+       }
+
+      
 
     
   }
