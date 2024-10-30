@@ -406,6 +406,7 @@ function preloadGame() {
 
   
   startGame();
+  gameboard.changeStatusMessage(`${playerOne.getName()}, choose your position!`);
 
     /*while(activeGame) {
    
@@ -435,12 +436,16 @@ function switchPlayers(e) {
 }
 } 
 
+
+
 gameWindow.addEventListener('click', switchPlayers);
 
 restartGame.addEventListener('click', ()=> {
   gameboard.resetBoard();
   newGame.clearGameboard();
   newGame.resetActivePlayer();
+  gameboard.updateNumberOfTurns();
+  gameboard.changeStatusMessage(`${playerOne.getName()}, choose your position!`);
 })
 
 /* ***** */
@@ -474,6 +479,10 @@ gameboard.displayBoard();
 function gameFlow() {
   
   let activePlayer = 1;
+
+  const readActivePlayer = ()=> {
+    return activePlayer;
+  };
   const boardFields = Array.from(document.querySelectorAll('.field'));
 
   function switchLogic(playerInput, playerNumber, eventObject) {
@@ -491,7 +500,7 @@ function gameFlow() {
        } 
         } 
        while(!availablePosition); */
-      gameboard.changeStatusMessage(`${playerNumber.getName()}, choose your position!`);
+     // gameboard.changeStatusMessage(`${playerNumber.getName()}, choose your position!`);
        playerInput = eventObject.target.getAttribute('data-position');
        if (!gameboard.checkAvailablePosition(playerInput)) {
         gameboard.changeStatusMessage('Position is already taken!');
@@ -504,6 +513,11 @@ function gameFlow() {
         gameboard.checkforWinner('X');
         gameboard.checkforWinner('O');
         activePlayer = activePlayer === 1 ? 2:1;
+        if (activePlayer === 1 && activeGame === true) {
+          gameboard.changeStatusMessage(`${playerOne.getName()}, choose your position!`);
+        } else if (activePlayer === 2 && activeGame === true) {
+          gameboard.changeStatusMessage(`${playerTwo.getName()}, choose your position!`);
+        }
        }
 
       
@@ -535,7 +549,7 @@ function gameFlow() {
 
   const resetActivePlayer = ()=> activePlayer = 1;
 
-  return {switchActivePlayer, clearGameboard, resetActivePlayer};
+  return {readActivePlayer, switchActivePlayer, clearGameboard, resetActivePlayer};
 }
 
 function resetGame() {
