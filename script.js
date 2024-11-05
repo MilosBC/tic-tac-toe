@@ -209,6 +209,8 @@ const playerOneName = document.querySelector('.player-one-name');
 const playerTwoName = document.querySelector('.player-two-name');
 const restartGame = document.querySelector('.restart-game');
 
+gameWindow.style.visibility = 'hidden';
+
 
 
 function player() {
@@ -360,17 +362,28 @@ const gameboard = (function() {
         dataentryWindow.classList.remove('hidden');
         console.log('kompjutovano ', window.getComputedStyle(dataentryWindow).pointerEvents); */
         gameWindow.removeEventListener('click', switchPlayers);
-        gameWindow.style.animation = 'scrollUp 1.5s forwards';
-        gameWindow.addEventListener('animationend', () => {
-            gameWindow.classList.add('hidden');
+       // gameWindow.style.animation = 'scrollUp 1.5s forwards';
+      /*  gameWindow.addEventListener('animationend', () => {
+           // gameWindow.classList.add('hidden');
+           gameWindow.style.visibility = 'hidden';
             dataentryWindow.removeEventListener('animationend', preloadGame);
-            dataentryWindow.classList.remove('hidden');
-            dataentryWindow.style.animation = 'scrollDown 1.5s forwards';
-        });
+           // dataentryWindow.classList.remove('hidden');
+           dataentryWindow.style.visibility = 'visible';
+            //dataentryWindow.style.animation = 'scrollDown 1.5s forwards';
+        }); */
+        gameWindow.style.visibility = 'hidden';
+        gameWindow.classList.toggle('hidden');
+        dataentryWindow.style.visibility = 'visible';
+        dataentryWindow.classList.toggle('hidden');
 
         resetGame();
+        newGame.clearGameboard();
+        newGame.resetActivePlayer();
+        gameboard.updateNumberOfTurns();
         playerOneTextInput.value = '';
         playerTwoTextInput.value = '';
+        closeModal();
+
 
      
         
@@ -398,10 +411,13 @@ const gameboard = (function() {
 }) ();
 
 function preloadGame() {
-  gameWindow.style.animation = 'scrollDown 1.5s forwards';
+ // gameWindow.style.animation = 'scrollDown 1.5s forwards';
   initializeGameParameters();
-  dataentryWindow.classList.add('hidden');
-  gameWindow.classList.remove('hidden');
+  /*dataentryWindow.classList.add('hidden');
+  gameWindow.classList.remove('hidden'); */
+
+ 
+  gameWindow.style.visibility = 'visible';
   activeGame = true;
 
   
@@ -423,12 +439,28 @@ newGameButton.addEventListener('click', e=> {
     errorMessage.textContent = 'Please enter the names of both player one and player two!'
   } else {
 
-  dataentryWindow.style.animation = 'scrollUp 1.5s forwards';
+ //dataentryWindow.style.animation = 'scrollUp 1.5s forwards';
+  dataentryWindow.style.visibility = 'hidden';
+  dataentryWindow.classList.add('hidden');
+
+  initializeGameParameters();
+ 
+
+ gameWindow.classList.remove('hidden');
+  gameWindow.style.visibility = 'visible';
+  activeGame = true;
+
+  
+  startGame();
+  gameboard.changeStatusMessage(`${playerOne.getName()}, choose your position!`);
+  gameWindow.addEventListener('click', switchPlayers);
+ 
 }
 });
 
 
 dataentryWindow.addEventListener('animationend', preloadGame);
+
 
 function switchPlayers(e) {
   if (activeGame) {
@@ -438,15 +470,19 @@ function switchPlayers(e) {
 
 
 
-gameWindow.addEventListener('click', switchPlayers);
+//gameWindow.addEventListener('click', switchPlayers);
 
 restartGame.addEventListener('click', ()=> {
+
+  if (activeGame === true) {
   gameboard.resetBoard();
   newGame.clearGameboard();
   newGame.resetActivePlayer();
   gameboard.updateNumberOfTurns();
   gameboard.changeStatusMessage(`${playerOne.getName()}, choose your position!`);
+}
 })
+
 
 /* ***** */
 
