@@ -209,7 +209,8 @@ const playerOneName = document.querySelector('.player-one-name');
 const playerTwoName = document.querySelector('.player-two-name');
 const restartGame = document.querySelector('.restart-game');
 
-gameWindow.style.visibility = 'hidden';
+//gameWindow.style.visibility = 'hidden';
+gameWindow.style.opacity = 0;
 
 
 
@@ -325,6 +326,12 @@ const gameboard = (function() {
     const announceWinner = player => {
       console.log(`${player} has won the game! Total number of moves: ${markers.length}`);
       gameboard.changeStatusMessage(`${player} has won the game!`);
+     /* let i = 0.1;
+
+      while (i < 1) {
+        console.log(i);
+        i += 0.1;
+      } */
       activeGame = false;
      // activeGame = false;
 
@@ -410,6 +417,23 @@ const gameboard = (function() {
     return {displayBoard, pushMarker, changeStatusMessage, updateNumberOfTurns, checkAvailablePosition, choosePosition, checkforWinner, resetBoard, openModal, closeModal};
 }) ();
 
+function gameWindowFadeIn() {
+ let i = 0;
+  
+
+  let intervalVariable = window.setInterval(()=> {
+    if (i >= 1) {
+      clearInterval(intervalVariable);
+    }  else {
+     
+      i+=0.1;
+      gameWindow.style.opacity = i;
+      console.log(gameWindow.style.opacity);
+    }
+  }, 100)
+  
+}
+
 function preloadGame() {
  // gameWindow.style.animation = 'scrollDown 1.5s forwards';
   initializeGameParameters();
@@ -418,6 +442,10 @@ function preloadGame() {
 
  
   gameWindow.style.visibility = 'visible';
+
+ 
+
+
   activeGame = true;
 
   
@@ -431,6 +459,8 @@ function preloadGame() {
 
  // putMarkersOnBoard();
 }
+
+
 
 newGameButton.addEventListener('click', e=> {
   e.preventDefault();
@@ -447,7 +477,15 @@ newGameButton.addEventListener('click', e=> {
  
 
  gameWindow.classList.remove('hidden');
-  gameWindow.style.visibility = 'visible';
+
+  //gameWindow.style.visibility = 'visible';
+  gameWindowFadeIn();
+  console.log('nakon funkcije', gameWindow.style.opacity); 
+
+  
+ 
+
+
   activeGame = true;
 
   
