@@ -211,6 +211,8 @@ const restartGame = document.querySelector('.restart-game');
 
 //gameWindow.style.visibility = 'hidden';
 gameWindow.style.opacity = 0;
+dataentryWindow.style.opacity = 1;
+
 
 
 
@@ -434,6 +436,42 @@ function gameWindowFadeIn() {
   
 }
 
+function dataentryWindowFadeOut() {
+  let i = 1;
+  
+  
+
+  let intervalVariable = window.setInterval(()=> {
+    if (i <= 0) {
+      clearInterval(intervalVariable);
+      dataentryWindow.classList.add('hidden');
+      gameWindow.classList.remove('hidden');
+
+  gameWindow.style.visibility = 'visible';
+  gameWindowFadeIn();
+    }  else {
+     
+      i-=0.1;
+      dataentryWindow.style.opacity = i;
+      console.log(dataentryWindow.style.opacity);
+    }
+  }, 100) 
+
+
+
+  /*let intervalVariable = window.setInterval(()=> {
+    let dataEntryOpacity = dataentryWindow.style.opacity; 
+
+    if (dataEntryOpacity > 0) {
+      dataEntryOpacity -= 0.1;
+      dataentryWindow.style.opacity = dataEntryOpacity
+    } 
+
+
+
+  }, 100)*/
+}
+
 function preloadGame() {
  // gameWindow.style.animation = 'scrollDown 1.5s forwards';
   initializeGameParameters();
@@ -470,16 +508,18 @@ newGameButton.addEventListener('click', e=> {
   } else {
 
  //dataentryWindow.style.animation = 'scrollUp 1.5s forwards';
-  dataentryWindow.style.visibility = 'hidden';
-  dataentryWindow.classList.add('hidden');
+  //dataentryWindow.style.visibility = 'hidden';
+
+  dataentryWindowFadeOut();
+ // dataentryWindow.classList.add('hidden');
 
   initializeGameParameters();
  
 
- gameWindow.classList.remove('hidden');
+ //gameWindow.classList.remove('hidden');
 
   //gameWindow.style.visibility = 'visible';
-  gameWindowFadeIn();
+  //gameWindowFadeIn();
   console.log('nakon funkcije', gameWindow.style.opacity); 
 
   
