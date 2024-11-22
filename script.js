@@ -380,10 +380,12 @@ const gameboard = (function() {
            dataentryWindow.style.visibility = 'visible';
             //dataentryWindow.style.animation = 'scrollDown 1.5s forwards';
         }); */
-        gameWindow.style.visibility = 'hidden';
+
+
+       /* gameWindow.style.visibility = 'hidden';
         gameWindow.classList.toggle('hidden');
         dataentryWindow.style.visibility = 'visible';
-        dataentryWindow.classList.toggle('hidden');
+        dataentryWindow.classList.toggle('hidden'); */
 
         resetGame();
         newGame.clearGameboard();
@@ -392,6 +394,8 @@ const gameboard = (function() {
         playerOneTextInput.value = '';
         playerTwoTextInput.value = '';
         closeModal();
+
+        gameWindowFadeOut();
 
 
      
@@ -447,7 +451,7 @@ function dataentryWindowFadeOut() {
       dataentryWindow.classList.add('hidden');
       gameWindow.classList.remove('hidden');
 
-  gameWindow.style.visibility = 'visible';
+ // gameWindow.style.visibility = 'visible';
   gameWindowFadeIn();
     }  else {
      
@@ -470,6 +474,42 @@ function dataentryWindowFadeOut() {
 
 
   }, 100)*/
+}
+
+function dataentryWindowFadeIn() {
+  let i = 0;
+  let intervalVariable = window.setInterval(()=> {
+    if (i >= 1) {
+      clearInterval(intervalVariable);
+    }  else {
+     
+      i+=0.1;
+      dataentryWindow.style.opacity = i;
+      console.log(dataentryWindow.style.opacity);
+    }
+  }, 100)
+}
+
+function gameWindowFadeOut() {
+  let i = 1;
+  
+  
+
+  let intervalVariable = window.setInterval(()=> {
+    if (i <= 0) {
+      clearInterval(intervalVariable);
+      gameWindow.classList.add('hidden');
+      dataentryWindow.classList.remove('hidden');
+ /* gameWindow.style.visibility = 'visible';
+  gameWindowFadeIn(); */
+      dataentryWindowFadeIn();
+    }  else {
+     
+      i-=0.1;
+      gameWindow.style.opacity = i;
+      console.log(gameWindow.style.opacity);
+    }
+  }, 100) 
 }
 
 function preloadGame() {
