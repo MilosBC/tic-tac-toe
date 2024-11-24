@@ -209,7 +209,6 @@ const playerOneName = document.querySelector('.player-one-name');
 const playerTwoName = document.querySelector('.player-two-name');
 const restartGame = document.querySelector('.restart-game');
 
-//gameWindow.style.visibility = 'hidden';
 gameWindow.style.opacity = 0;
 dataentryWindow.style.opacity = 1;
 
@@ -271,21 +270,10 @@ const gameboard = (function() {
    const closeModal = ()=> dialog.close(); 
 
     const updateNumberOfTurns = ()=> numberOfTurns.textContent = markers.length;
-   /* const boardFields = Array.from(document.querySelectorAll('.field'));
-
-    const getBoardIndexes = () => {
-      boardFields.forEach(boardfield => {
-        boardfield.addEventListener('animationend', ()=> {
-          return boardfield.getAttribute('data-position');
-        })
-      })
-    } */
 
     const changeStatusMessage = text => statusMessage.textContent = text;
 
     const pushMarker = marker => markers.push(marker);
-
-    
 
     const checkAvailablePosition = numberInput => {
       if ( boardArray[numberInput] === 'X' || boardArray[numberInput] === 'O' ) {
@@ -315,8 +303,6 @@ const gameboard = (function() {
         announceWinner(playerTwo.getName());
       }
       } else {
-        /* gameboard.changeStatusMessage(`It's a tie! No one wins`);
-        activeGame = false;*/
         if ((boardArray.every(num => typeof num !== 'number')) && !statusMessage.textContent.includes('won')) {
           gameboard.changeStatusMessage(`It's a tie! No one wins`);
           activeGame = false;
@@ -326,67 +312,16 @@ const gameboard = (function() {
     }
 
     const announceWinner = player => {
-      console.log(`${player} has won the game! Total number of moves: ${markers.length}`);
       gameboard.changeStatusMessage(`${player} has won the game!`);
-     /* let i = 0.1;
-
-      while (i < 1) {
-        console.log(i);
-        i += 0.1;
-      } */
       activeGame = false;
-     // activeGame = false;
-
-    /*  const newGame = prompt('Do you want play again? Type "y" or "yes" to start a new game').toLowerCase();
-      if (newGame === 'y' || newGame === 'yes') {
-        resetGame();
-        initializeGameParameters();
-        startGame();
-      //  activeGame = true;
-      } */
-      
-      
-     //dialog.showModal();
-
      openModal();
      noBtn.addEventListener('click', ()=> {
       closeModal();
      })
 
      yesBtn.addEventListener('click', ()=> {
-      /*resetGame();
-      gameWindow.removeEventListener('click', switchPlayers);
-      gameWindow.style.animation = 'scrollDown 1.5s forwards';
-     
-        gameWindow.classList.add('hidden');
-      
-        playerOneTextInput.value = '';
-        playerTwoTextInput.value = '';
-        
-        dataentryWindow.removeEventListener('animationend', preloadGame);
-        
 
-        
-        dataentryWindow.style.animation = 'scrollDown 1.5s forwards'; 
-        dataentryWindow.classList.remove('hidden');
-        console.log('kompjutovano ', window.getComputedStyle(dataentryWindow).pointerEvents); */
         gameWindow.removeEventListener('click', switchPlayers);
-       // gameWindow.style.animation = 'scrollUp 1.5s forwards';
-      /*  gameWindow.addEventListener('animationend', () => {
-           // gameWindow.classList.add('hidden');
-           gameWindow.style.visibility = 'hidden';
-            dataentryWindow.removeEventListener('animationend', preloadGame);
-           // dataentryWindow.classList.remove('hidden');
-           dataentryWindow.style.visibility = 'visible';
-            //dataentryWindow.style.animation = 'scrollDown 1.5s forwards';
-        }); */
-
-
-       /* gameWindow.style.visibility = 'hidden';
-        gameWindow.classList.toggle('hidden');
-        dataentryWindow.style.visibility = 'visible';
-        dataentryWindow.classList.toggle('hidden'); */
-
         resetGame();
         newGame.clearGameboard();
         newGame.resetActivePlayer();
@@ -394,20 +329,8 @@ const gameboard = (function() {
         playerOneTextInput.value = '';
         playerTwoTextInput.value = '';
         closeModal();
-
-        gameWindowFadeOut();
-
-
-     
-        
-  
-     
-      
-      
-  
-     /* resetGame();
-      initializeGameParameters();
-      startGame(); */
+        //gameWindowFadeOut();
+        switchActiveWindows();
      })
     }
 
@@ -423,6 +346,15 @@ const gameboard = (function() {
     return {displayBoard, pushMarker, changeStatusMessage, updateNumberOfTurns, checkAvailablePosition, choosePosition, checkforWinner, resetBoard, openModal, closeModal};
 }) ();
 
+function switchActiveWindows() {
+  if (gameWindow.classList.contains('hidden')) {
+    dataentryWindowFadeOut();
+  } else if (dataentryWindow.classList.contains('hidden')) {
+    gameWindowFadeOut();
+  }
+}
+
+
 function gameWindowFadeIn() {
  let i = 0;
   
@@ -434,7 +366,7 @@ function gameWindowFadeIn() {
      
       i+=0.1;
       gameWindow.style.opacity = i;
-      console.log(gameWindow.style.opacity);
+      
     }
   }, 100)
   
@@ -442,38 +374,20 @@ function gameWindowFadeIn() {
 
 function dataentryWindowFadeOut() {
   let i = 1;
-  
-  
-
   let intervalVariable = window.setInterval(()=> {
     if (i <= 0) {
       clearInterval(intervalVariable);
       dataentryWindow.classList.add('hidden');
       gameWindow.classList.remove('hidden');
-
- // gameWindow.style.visibility = 'visible';
-  gameWindowFadeIn();
+      gameWindowFadeIn();
     }  else {
      
       i-=0.1;
       dataentryWindow.style.opacity = i;
-      console.log(dataentryWindow.style.opacity);
+    
     }
   }, 100) 
 
-
-
-  /*let intervalVariable = window.setInterval(()=> {
-    let dataEntryOpacity = dataentryWindow.style.opacity; 
-
-    if (dataEntryOpacity > 0) {
-      dataEntryOpacity -= 0.1;
-      dataentryWindow.style.opacity = dataEntryOpacity
-    } 
-
-
-
-  }, 100)*/
 }
 
 function dataentryWindowFadeIn() {
@@ -485,7 +399,7 @@ function dataentryWindowFadeIn() {
      
       i+=0.1;
       dataentryWindow.style.opacity = i;
-      console.log(dataentryWindow.style.opacity);
+      
     }
   }, 100)
 }
@@ -493,52 +407,29 @@ function dataentryWindowFadeIn() {
 function gameWindowFadeOut() {
   let i = 1;
   
-  
-
   let intervalVariable = window.setInterval(()=> {
     if (i <= 0) {
       clearInterval(intervalVariable);
       gameWindow.classList.add('hidden');
       dataentryWindow.classList.remove('hidden');
- /* gameWindow.style.visibility = 'visible';
-  gameWindowFadeIn(); */
       dataentryWindowFadeIn();
     }  else {
      
       i-=0.1;
       gameWindow.style.opacity = i;
-      console.log(gameWindow.style.opacity);
+      
     }
   }, 100) 
 }
 
 function preloadGame() {
- // gameWindow.style.animation = 'scrollDown 1.5s forwards';
+
   initializeGameParameters();
-  /*dataentryWindow.classList.add('hidden');
-  gameWindow.classList.remove('hidden'); */
-
- 
   gameWindow.style.visibility = 'visible';
-
- 
-
-
   activeGame = true;
-
-  
   startGame();
   gameboard.changeStatusMessage(`${playerOne.getName()}, choose your position!`);
-
-    /*while(activeGame) {
-   
-  newGame.switchActivePlayer();
-  } */
-
- // putMarkersOnBoard();
 }
-
-
 
 newGameButton.addEventListener('click', e=> {
   e.preventDefault();
@@ -547,24 +438,10 @@ newGameButton.addEventListener('click', e=> {
     errorMessage.textContent = 'Please enter the names of both player one and player two!'
   } else {
 
- //dataentryWindow.style.animation = 'scrollUp 1.5s forwards';
-  //dataentryWindow.style.visibility = 'hidden';
-
-  dataentryWindowFadeOut();
- // dataentryWindow.classList.add('hidden');
+  //dataentryWindowFadeOut();
+  switchActiveWindows();
 
   initializeGameParameters();
- 
-
- //gameWindow.classList.remove('hidden');
-
-  //gameWindow.style.visibility = 'visible';
-  //gameWindowFadeIn();
-  console.log('nakon funkcije', gameWindow.style.opacity); 
-
-  
- 
-
 
   activeGame = true;
 
@@ -579,16 +456,11 @@ newGameButton.addEventListener('click', e=> {
 
 dataentryWindow.addEventListener('animationend', preloadGame);
 
-
 function switchPlayers(e) {
   if (activeGame) {
   newGame.switchActivePlayer(e);
 }
 } 
-
-
-
-//gameWindow.addEventListener('click', switchPlayers);
 
 restartGame.addEventListener('click', ()=> {
 
@@ -603,9 +475,6 @@ restartGame.addEventListener('click', ()=> {
 
 
 /* ***** */
-
-
-
 
 function initializeGameParameters() {
 console.log('Welcome to Tic Tac Toe! Good luck everyone and may the better player win!');
@@ -627,9 +496,6 @@ gameboard.displayBoard();
 
 }
 
-
-
-
 function gameFlow() {
   
   let activePlayer = 1;
@@ -639,22 +505,9 @@ function gameFlow() {
   };
   const boardFields = Array.from(document.querySelectorAll('.field'));
 
-  function switchLogic(playerInput, playerNumber, eventObject) {
-
-   
-      
+  function switchLogic(playerInput, playerNumber, eventObject) {   
       let availablePosition = false;
 
-     /* do {
-        gameboard.changeStatusMessage(`${playerNumber.getName()}, choose your position!`);
-        playerInput = eventObject.target.getAttribute('data-position');
-        boardFields[playerInput].textContent = `${activePlayer === 1 ? 'X' : 'O'}`;
-       if (gameboard.checkAvailablePosition(playerInput)) {
-        availablePosition = true;
-       } 
-        } 
-       while(!availablePosition); */
-     // gameboard.changeStatusMessage(`${playerNumber.getName()}, choose your position!`);
        playerInput = eventObject.target.getAttribute('data-position');
        if (!gameboard.checkAvailablePosition(playerInput)) {
         gameboard.changeStatusMessage('Position is already taken!');
@@ -719,19 +572,10 @@ function resetGame() {
 }
 
 function startGame() {
-  console.log(activeGame);
-  alert('Igra pocinje');
   newGame = gameFlow();
   
 }
 
-//startGame();
-
-/*function putMarkersOnBoard() {
-  document.body.addEventListener('click', e => {
-    console.log(e.target.getAttribute('data-position'));
-  })
-} */
 
 
 
