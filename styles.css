@@ -154,6 +154,7 @@ input[type="text"] {
     justify-content: center;
     gap: 800px;
     padding-top: 15px;
+    margin-top: -100px;
 }
 
 .first-player > p,
@@ -190,7 +191,7 @@ input[type="text"] {
 
 .game-messages {
     margin-top: 40px;
-    margin-left: 75px;
+    margin-left: -1px;
 }
 
 .game-messages > p {
@@ -207,7 +208,9 @@ input[type="text"] {
 }
 
 
-
+.restart-game {
+    margin-right: 10px;
+}
 
 
 .play-again {
