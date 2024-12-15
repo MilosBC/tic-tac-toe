@@ -40,7 +40,7 @@ function player() {
   }
   
 
-  const playerDetails = () =>  console.log(`Player ${marker === 'X' ? 1 : 2} name: ${name}. Marker: ${marker}`);
+  
 
   const getName = ()=> name;
     
@@ -52,18 +52,13 @@ function player() {
   const resetName = () => name = null; 
   const resetMarker = () => marker = null; 
 
-  return {setName, getName, playerDetails, setMarker, putMarker, resetName, resetMarker};
+  return {setName, getName, setMarker, putMarker, resetName, resetMarker};
 } 
 
 const gameboard = (function() {
     let boardArray = [0,1,2,3,4,5,6,7,8];
     let markers = [];
-    const displayBoard = () => console.log(`
-    ${boardArray[0]}   ${boardArray[1]}   ${boardArray[2]} 
-    
-    ${boardArray[3]}   ${boardArray[4]}   ${boardArray[5]}
-    
-    ${boardArray[6]}   ${boardArray[7]}   ${boardArray[8]}`);
+
 
     const statusMessage = document.querySelector('.status-messages');
     const numberOfTurns = document.querySelector('.number-of-turns');
@@ -149,7 +144,7 @@ const gameboard = (function() {
 
     
 
-    return {displayBoard, pushMarker, changeStatusMessage, updateNumberOfTurns, checkAvailablePosition, choosePosition, checkforWinner, resetBoard, openModal, closeModal};
+    return { pushMarker, changeStatusMessage, updateNumberOfTurns, checkAvailablePosition, choosePosition, checkforWinner, resetBoard, openModal, closeModal};
 }) ();
 
 function switchActiveWindows() {
@@ -283,22 +278,21 @@ restartGame.addEventListener('click', ()=> {
 /* ***** */
 
 function initializeGameParameters() {
-console.log('Welcome to Tic Tac Toe! Good luck everyone and may the better player win!');
 playerOne = player();
 playerOne.setName();
 playerOne.setMarker('X');
-playerOne.playerDetails();
+
 playerOneName.textContent = playerOne.getName();
 
 
 playerTwo = player();
 playerTwo.setName();
 playerTwo.setMarker('O');
-playerTwo.playerDetails();
+
 playerTwoName.textContent = playerTwo.getName();
 
 
-gameboard.displayBoard();
+
 
 }
 
@@ -321,7 +315,7 @@ function gameFlow() {
         boardFields[playerInput].textContent = `${activePlayer === 1 ? 'X' : 'O'}`;
         gameboard.pushMarker(playerNumber.putMarker());
         gameboard.choosePosition(playerInput);
-        gameboard.displayBoard();
+        
         gameboard.updateNumberOfTurns();
         gameboard.checkforWinner('X');
         gameboard.checkforWinner('O');
