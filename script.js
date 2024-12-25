@@ -105,15 +105,20 @@ const gameboard = (function() {
       }
       } else {
         if ((boardArray.every(num => typeof num !== 'number')) && !statusMessage.textContent.includes('won')) {
-          gameboard.changeStatusMessage(`It's a tie! No one wins`);
-          activeGame = false;
+          announceWinner('tie');
         }
         
       }
     }
 
-    const announceWinner = player => {
-      gameboard.changeStatusMessage(`${player} has won the game!`);
+    const announceWinner = winningCondition => {
+
+      if (winningCondition === 'tie') {
+        gameboard.changeStatusMessage(`It's a tie! No one wins`);
+      } else {
+        gameboard.changeStatusMessage(`${winningCondition} has won the game!`);
+      }
+      
       activeGame = false;
      openModal();
      noBtn.addEventListener('click', ()=> {
@@ -130,7 +135,6 @@ const gameboard = (function() {
         playerOneTextInput.value = '';
         playerTwoTextInput.value = '';
         closeModal();
-        //gameWindowFadeOut();
         switchActiveWindows();
      })
     }
@@ -239,7 +243,6 @@ newGameButton.addEventListener('click', e=> {
     errorMessage.textContent = 'Please enter the names of both player one and player two!'
   } else {
 
-  //dataentryWindowFadeOut();
   switchActiveWindows();
 
   initializeGameParameters();
