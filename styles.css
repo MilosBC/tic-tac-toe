@@ -136,9 +136,7 @@ input[type="text"] {
     transform: rotate(360deg);
 }
 
-/*.hidden {
-    display: none;
-} */
+
 
 .game-window {
     display: flex;
@@ -226,7 +224,7 @@ input[type="text"] {
 }
 
 .footer.two {
- /* margin-top: 20px; */
+
  margin-top: -180px;
 }
 
@@ -240,8 +238,7 @@ input[type="text"] {
     flex-direction: column;
     align-items: center;
     gap: 5px;
-   /* position: absolute;
-    top: 250px ; */
+  
 }
 
 .modal-buttons {
@@ -250,7 +247,7 @@ input[type="text"] {
 }
 
 dialog {
-    /*display: block; */
+    
    position: absolute;
    left: 690px;
    top: 300px;
@@ -281,6 +278,62 @@ dialog {
         transform: translateY(0);
         opacity: 1;
     }
+}
+
+/* Responsiveness */
+
+@media (max-width: 768px) {
+    p, 
+label  {
+    font-size: 1.2rem;
+   
+}
+
+input[type='text']:nth-of-type(2) {
+    margin-right: 22px;
+}
+
+.player-info {
+   
+    gap: 500px;
+    margin-top: -205px;
+  
+}
+
+.first-player > p,
+.second-player > p {
+    font-size: 2rem;
+}
+
+.game-board {
+    width: 300px;
+    height: 300px;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+}
+
+.game-messages > p {
+    font-size: 1.7rem;
+}
+
+.footer.two {
+
+    margin-top: -50px;
+    
+   }
+
+   .footer.two > p {
+    font-size: 1.5rem;
+   }
+
+   .fa-github {
+    font-size: 2.5rem;
+   }
+
+
+
+
+
 }
 
 
