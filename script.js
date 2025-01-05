@@ -370,6 +370,7 @@ function resetGame() {
   playerTwo.resetMarker();
 
   gameboard.resetBoard();
+  errorMessage.textContent = '';
  
   
 }
