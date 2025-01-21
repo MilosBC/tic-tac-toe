@@ -353,7 +353,7 @@ function gameFlow() {
 
   const clearGameboard = () => {
     boardFields.forEach(field=> {
-      field.textContent='';
+      field.textContent = '';
     })
   }
 
